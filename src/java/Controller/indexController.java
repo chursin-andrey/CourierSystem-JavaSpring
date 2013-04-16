@@ -23,22 +23,13 @@ public class indexController {
         mav.addObject("title", "Курьерская служба");
         
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM"); 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
         mav.addObject("dateTimeNow", dateFormat.format(date));
         
         if (principal != null) {
             String userName = SecurityContextHolder.getContext().getAuthentication().getName();
             mav.addObject("authUser", userDao.getByLogin(userName));
         }
-        
-        /*
-        User user = new User();
-        user.setLogin("234");
-        user.setName("234");
-        user.setPassword("dasd");
-        user.setRole_id(1);
-        userDao.insert(user);
-        */
 
         return mav;
     }

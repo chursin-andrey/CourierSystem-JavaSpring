@@ -11,6 +11,7 @@
         <form-login login-page="/login" default-target-url="/" authentication-failure-url="/login/fail" />
         <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <intercept-url pattern="/reg*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <logout logout-success-url="/logout" />
     </http>
     
@@ -20,7 +21,7 @@
             <jdbc-user-service 
                 data-source-ref="dataSource"
 		   users-by-username-query="select login, password, 1 from user where login=?" 
-                   authorities-by-username-query="select u.login, ur.role from user u, user_role ur where u.id = ur.id and u.login=?"/>
+                   authorities-by-username-query="select u.login, ur.role from user u, user_role ur where u.role_id = ur.id and u.login=?"/>
         </authentication-provider>
     </authentication-manager>
     
