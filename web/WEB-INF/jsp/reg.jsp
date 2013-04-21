@@ -7,6 +7,7 @@
         </head>
         <body>
             <div id="login" class="mydiv">
+                <p class="text-right"><a href="<%= request.getContextPath()%>">На главную</a></p>
                 <h4>Зарегестрироваться в курьерской службе</h4>
                 <form action="<%= request.getContextPath()%>/reg/add" method="post" class="form-horizontal">
                 <div class="control-group">

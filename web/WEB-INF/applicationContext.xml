@@ -26,7 +26,7 @@
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource"
         p:driverClassName="com.mysql.jdbc.Driver"
-        p:url="jdbc:mysql://localhost:3306/cms_db"
+        p:url="jdbc:mysql://localhost:3306/cms_db?useUnicode=true&amp;characterEncoding=UTF-8"
         p:username="root"
         p:password="root" />
         

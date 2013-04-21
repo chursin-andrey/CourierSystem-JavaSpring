@@ -2,16 +2,20 @@ package DAO.Jdbc;
 
 import DAO.OrderDao;
 import Model.Order;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class OrderJdbcDao implements OrderDao {
-    
+
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedTemplate;
 
@@ -39,11 +43,9 @@ public class OrderJdbcDao implements OrderDao {
     };
 
     @Override
-    public void insert(Order order) {
-        String sql = "INSERT INTO "
-                + "order (delivery_start_time, delivery_stop_time, sender_name, sender_address, recipient_name, recipient_address, courier_id, user_id, length) "
-                + "VALUES (?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, order);
+    public int insert(Order order) {
+        String sql = "INSERT INTO `order` (`delivery_start_time`, `delivery_stop_time`, `sender_name`, `sender_address`, `recipient_name`, `recipient_address`, `courier_id`, `user_id`, `length`) VALUES(?,?,?,?,?,?,?,?,?)";
+        return jdbcTemplate.update(sql, getPreparedStatementSetter(order));
     }
 
     @Override
@@ -58,12 +60,45 @@ public class OrderJdbcDao implements OrderDao {
 
     @Override
     public Order getById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return jdbcTemplate.queryForObject("SELECT * FROM `order` WHERE `id`=?", rowMapper, id);
     }
 
     @Override
     public List<Order> getAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
+    private PreparedStatementSetter getPreparedStatementSetter(final Order order) {
+        return new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                int i = 0;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String startTime = sdf.format(order.getDelivery_start_time());
+                String stopTime = sdf.format(order.getDelivery_stop_time());
+                
+                ps.setString(++i, startTime);
+                ps.setString(++i, stopTime);
+                ps.setString(++i, order.getSender_name());
+                ps.setString(++i, order.getSender_address());
+                ps.setString(++i, order.getRecipient_name());
+                ps.setString(++i, order.getRecipient_address());
+
+                if (order.getCourier_id() != null) {
+                    ps.setInt(++i, order.getCourier_id());
+                } else {
+                    ps.setNull(++i, Types.NULL);
+                }
+
+                if (order.getUser_id() != null) {
+                    ps.setInt(++i, order.getUser_id());
+                } else {
+                    ps.setNull(++i, Types.NULL);
+                }
+
+                ps.setDouble(++i, order.getLength());
+            }
+        };
+    }
 }

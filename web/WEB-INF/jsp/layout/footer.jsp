@@ -1,3 +1,4 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <div id="footer" class="mydiv">
-    � VSU, 2013
+    © ВГУ, 2013
 </div>
