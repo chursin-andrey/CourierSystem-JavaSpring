@@ -18,7 +18,7 @@
                         <a href="<%= request.getContextPath()%>/j_spring_security_logout" />Выйти</a>
                     </c:when>
                     <c:otherwise>
-                        <p><a href="<%= request.getContextPath()%>/login">Войти</a> / <a href="<%= request.getContextPath()%>/registration">Регистрация</a></p>
+                        <p><a href="<%= request.getContextPath()%>/login">Войти</a> / <a href="<%= request.getContextPath()%>/reg">Регистрация</a></p>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -53,7 +53,7 @@
             </div>
 
             <div id="orderOption">
-                <p>Длинна пути: <b><span class="getLength"></span></b></p>
+                <p>Длина пути: <b><span class="getLength"></span></b></p>
                 <p>Время пути: <b><span class="getTime"></span></b></p>
             </div>
         </div>
