@@ -6,8 +6,10 @@
         <jsp:include page="/WEB-INF/jsp/layout/head.jsp"></jsp:include>
         </head>
         <body>
+            
             <div id="login" class="mydiv">
-                <h4>Войти в курьерску службу</h4>
+                <p class="text-right"><a href="<%= request.getContextPath()%>">На главную</a></p>
+                <h4>Войти в курьерскую службу</h4>
             <c:if test="${not empty error}">
                 <div class="alert alert-error">
                     Неверное имя пользователя или пароль
@@ -32,6 +34,7 @@
                     </div>
                 </div>
             </form>
+            
         </div>
     </body>
 </html>
