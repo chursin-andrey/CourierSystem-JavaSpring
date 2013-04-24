@@ -28,12 +28,12 @@ public class regController {
             @RequestParam("re_password") String re_password) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("reg");
-
+        
         if (password.equals(re_password)) {
             User user = new User();
             user.setLogin(login);
             user.setName(name);
-            user.setPassword(password);
+            user.setPasswordMD5(password);
             user.setRole_id(1);
             userDao.insert(user);
         }

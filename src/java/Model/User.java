@@ -42,6 +42,10 @@ public class User {
     }
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPasswordMD5(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());
