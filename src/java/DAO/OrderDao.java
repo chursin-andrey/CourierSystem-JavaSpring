@@ -12,6 +12,12 @@ public interface OrderDao {
     void delete(Order order);
 
     Order getById(Integer id);
+    
+    List<Order> getByUser(Integer id);
+    
+    List<Order> getByNewOrder();
+    
+    List<Order> getByOldOrder();
 
     List<Order> getAll();
 }

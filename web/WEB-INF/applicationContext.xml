@@ -19,7 +19,12 @@
     <bean id="userDao" class="DAO.Jdbc.UserJdbcDao">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    
     <bean id="orderDao" class="DAO.Jdbc.OrderJdbcDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean id="courierDao" class="DAO.Jdbc.CourierJdbcDao">
         <property name="dataSource" ref="dataSource"/>
     </bean>
     

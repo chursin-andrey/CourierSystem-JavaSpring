@@ -34,7 +34,7 @@ $(function() {
                     var minutes = hours[1];
                     hours = hours[0];
 
-                    var date = new Date(year, month, day, hours, minutes);
+                    var date = new Date(year, month - 1, day, hours, minutes);
                     var new_date = new Date(date.getTime() + (route.getTime() * 1000));
                     
                     $("#date_stop").val(new_date.format('yyyy-mm-dd HH:MM'));
