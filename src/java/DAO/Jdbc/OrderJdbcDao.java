@@ -23,7 +23,6 @@ public class OrderJdbcDao implements OrderDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.namedTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
-    
     private RowMapper<Order> rowMapper = new RowMapper<Order>() {
         @Override
         public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -62,6 +61,21 @@ public class OrderJdbcDao implements OrderDao {
     public Order getById(Integer id) {
         return jdbcTemplate.queryForObject("SELECT * FROM `order` WHERE `id`=?", rowMapper, id);
     }
+    
+    @Override
+    public List<Order> getByNewOrder() {
+        return jdbcTemplate.query("SELECT * FROM `order` WHERE `courier_id` IS NULL", rowMapper);
+    }
+    
+    @Override
+    public List<Order> getByOldOrder() {
+        return jdbcTemplate.query("SELECT * FROM `order` WHERE `courier_id` IS NOT NULL", rowMapper);
+    }
+
+    @Override
+    public List<Order> getByUser(Integer id) {
+        return jdbcTemplate.query("SELECT * FROM `order` WHERE `user_id`=?", rowMapper, id);
+    }
 
     @Override
     public List<Order> getAll() {
@@ -77,7 +91,7 @@ public class OrderJdbcDao implements OrderDao {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String startTime = sdf.format(order.getDelivery_start_time());
                 String stopTime = sdf.format(order.getDelivery_stop_time());
-                
+
                 ps.setString(++i, startTime);
                 ps.setString(++i, stopTime);
                 ps.setString(++i, order.getSender_name());

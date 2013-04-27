@@ -42,8 +42,8 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void update(User user) {
-        String sql = "UPDATE user SET id=?, login=?, name=?, password=?, role_id=? WHERE id=?";
-        jdbcTemplate.update(sql, user);
+        String sql = "UPDATE user SET `login`=?, `name`=?, `password`=?, `role_id`=? WHERE `id`=?";
+        jdbcTemplate.update(sql, getPreparedStatementSetter(user));
     }
 
     @Override
@@ -80,6 +80,7 @@ public class UserJdbcDao implements UserDao {
                 ps.setString(++i, user.getName());
                 ps.setString(++i, user.getPassword());
                 ps.setInt(++i, user.getRole_id());
+                //ps.setInt(++i, user.getId());
             }
         };
     }
