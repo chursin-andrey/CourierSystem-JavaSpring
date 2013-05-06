@@ -41,12 +41,22 @@ public class OrderJdbcDao implements OrderDao {
         }
     };
 
+    
     @Override
     public int insert(Order order) {
-        String sql = "INSERT INTO `order` (`delivery_start_time`, `delivery_stop_time`, `sender_name`, `sender_address`, `recipient_name`, `recipient_address`, `courier_id`, `user_id`, `length`) VALUES(?,?,?,?,?,?,?,?,?)";
-        return jdbcTemplate.update(sql, getPreparedStatementSetter(order));
+        String sql = "INSERT INTO `order` (`delivery_start_time`, `delivery_stop_time`, `sender_name`, `sender_address`, `recipient_name`, `recipient_address`, `user_id`, `length`) VALUES(?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, order.getDelivery_start_time(), order.getDelivery_stop_time(), order.getSender_name(),
+                order.getSender_address(), order.getRecipient_name(), order.getRecipient_address(), 
+                order.getUser_id(), order.getLength());
+        return jdbcTemplate.queryForInt("SELECT MAX(`id`) FROM `order`");
     }
 
+    /*@Override
+     public int insert(Order order) {
+        String sql = "INSERT INTO `order` (`delivery_start_time`, `delivery_stop_time`, `sender_name`, `sender_address`, `recipient_name`, `recipient_address`, `courier_id`, `user_id`, `length`) VALUES(?,?,?,?,?,?,?,?,?)";
+        return jdbcTemplate.update(sql, getPreparedStatementSetter(order));
+    }*/
+    
     
     @Override
     public void update(Order order) {
@@ -62,7 +72,14 @@ public class OrderJdbcDao implements OrderDao {
 
     @Override
     public Order getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM `order` WHERE `id`=?", rowMapper, id);
+        if (jdbcTemplate.queryForInt("SELECT COUNT(*) FROM `order` WHERE `id`=?", id) != 0)
+        {
+            return jdbcTemplate.queryForObject("SELECT * FROM `order` WHERE `id`=?", rowMapper, id); 
+        }
+        else
+        {
+            return null;
+        }
     }
     
     @Override

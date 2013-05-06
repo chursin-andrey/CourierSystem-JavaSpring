@@ -70,9 +70,9 @@ public class orderController {
         }
         order.setLength(Double.parseDouble(length));
         
-        order.setId(orderDao.insert(order));
-        
-        mav.addObject("order", order);
+        //order.setId(orderDao.insert(order));
+                
+        mav.addObject("order", orderDao.getById(orderDao.insert(order)));
         
         
         return mav;
@@ -94,7 +94,16 @@ public class orderController {
         
         Order order = orderDao.getById(Integer.parseInt(order_id));
         
-        mav.addObject("order", order);
+        String emptyResult = new String("");
+        
+        if (order == null)
+        {
+            mav.addObject("no_matches_found", emptyResult.concat("К сожалению, заказ с введенным номером не существует"));
+        }
+        else
+        {
+            mav.addObject("order", order);
+        }
         
         return mav;
     }
