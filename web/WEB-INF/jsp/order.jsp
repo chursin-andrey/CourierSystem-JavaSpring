@@ -31,30 +31,40 @@
                 </c:choose>
             </div>
         </div>
-
-        <div class="mydiv" >
-            <h4>Заказ №${order.id}</h4>
-            <blockquote>
-            <dl class="dl-horizontal">
-                <dt>Имя отправителя:</dt>
-                <dd>${order.sender_name}</dd>
-                <dt>Адрес отправителя:</dt>
-                <dd>${order.sender_address}</dd>
-                <dt>Имя получателя:</dt>
-                <dd>${order.recipient_name}</dd>
-                <dt>Адрес получателя:</dt>
-                <dd>${order.recipient_address}</dd>
-                <dt>Забрать до::</dt>
-                <dd>${order.delivery_start_time}</dd>
-                <dt>Доставить до:</dt>
-                <dd>${order.delivery_stop_time}</dd>
-            </dl>
-            <dl class="dl-horizontal">
-                <dt>Цена</dt>
-                <dd><p class="text-info">1150 р.</p></dd>
-            </dl>
-            </blockquote>
-            <pre><p class="muted">Вы можете отслеживать статус заказа по этой ссылке: <a href="http://localhost:8080<%= request.getContextPath()%>/order/${order.id}">http://localhost:8080<%= request.getContextPath()%>/order/${order.id}</a></p></pre>
+        
+       <c:choose>
+            <c:when test='${!no_matches_found.isEmpty()}'>
+                <div class="mydiv" >
+                    <c:out value="${no_mathes_found}">${no_matches_found.toString()}</c:out>    
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="mydiv" >
+                <h4>Заказ №${order.id}</h4>
+                <blockquote>
+                <dl class="dl-horizontal">
+                    <dt>Имя отправителя:</dt>
+                    <dd>${order.sender_name}</dd>
+                    <dt>Адрес отправителя:</dt>
+                    <dd>${order.sender_address}</dd>
+                    <dt>Имя получателя:</dt>
+                    <dd>${order.recipient_name}</dd>
+                    <dt>Адрес получателя:</dt>
+                    <dd>${order.recipient_address}</dd>
+                    <dt>Забрать до::</dt>
+                    <dd>${order.delivery_start_time}</dd>
+                    <dt>Доставить до:</dt>
+                    <dd>${order.delivery_stop_time}</dd>
+                </dl>
+        
+                <dl class="dl-horizontal">
+                    <dt>Цена</dt>
+                    <dd><p class="text-info">1150 р.</p></dd>
+                </dl>
+                </blockquote>
+                <pre><p class="muted">Вы можете отслеживать статус заказа по этой ссылке: <a href="http://localhost:8080<%= request.getContextPath()%>/order/${order.id}">http://localhost:8080<%= request.getContextPath()%>/order/<c:out value="${order.id}" /></a></p></pre>
+            </c:otherwise>
+       </c:choose>
         </div>
 
     </body>

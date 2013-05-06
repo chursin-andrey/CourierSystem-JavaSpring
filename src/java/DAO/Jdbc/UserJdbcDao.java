@@ -33,7 +33,7 @@ public class UserJdbcDao implements UserDao {
             return user;
         }
     };
-
+    
     @Override
     public void insert(User user) {
         String sql = "INSERT INTO `user`(`login`, `name`, `password`, `role_id`) VALUES(?,?,?,?)";
