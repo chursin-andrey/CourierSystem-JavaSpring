@@ -65,12 +65,24 @@
                                         <td>${order.recipient_address}</td>
                                         <td>${order.delivery_start_time}</td>
                                         <td>${order.delivery_stop_time}</td>
-                                        <td>Неназначен</td>
+                                        <td>
+                                           <form action="<%= request.getContextPath()%>/admin/edit" method="post">
+                                               <input type="hidden" name="orderId" value="${order.id}" />
+                                               <select name="courierId">
+                                                    <option disabled selected value="default">Выберите курьера</option>
+                                                    <c:forEach var="courier" items="${courierList}">
+                                                        <option value="${courier.id}">${courier.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <input type="submit" class="btn" name="apply" value="Ok"/>
+                                            </form>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
-                        </table>
+                        </table>        
                     </div>
+                    
                     <div class="tab-pane" id="tab2">
                         <table id="cabinet" class="table table-hover">
                             <thead>
@@ -95,7 +107,13 @@
                                         <td>${order.recipient_address}</td>
                                         <td>${order.delivery_start_time}</td>
                                         <td>${order.delivery_stop_time}</td>
-                                        <td>Назначен</td>
+                                        <td>
+                                            <c:forEach var="courier" items="${courierList}">
+                                                <c:if test="${courier.id == order.courier_id}">
+                                                      <c:out value="${courier.name}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

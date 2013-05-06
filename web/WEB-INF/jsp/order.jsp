@@ -38,15 +38,15 @@
             <dl class="dl-horizontal">
                 <dt>Имя отправителя:</dt>
                 <dd>${order.sender_name}</dd>
-                <dt>Адресс отправителя:</dt>
+                <dt>Адрес отправителя:</dt>
                 <dd>${order.sender_address}</dd>
                 <dt>Имя получателя:</dt>
                 <dd>${order.recipient_name}</dd>
-                <dt>Адресс получателя:</dt>
+                <dt>Адрес получателя:</dt>
                 <dd>${order.recipient_address}</dd>
-                <dt>Время отправления</dt>
+                <dt>Забрать до::</dt>
                 <dd>${order.delivery_start_time}</dd>
-                <dt>Время получения</dt>
+                <dt>Доставить до:</dt>
                 <dd>${order.delivery_stop_time}</dd>
             </dl>
             <dl class="dl-horizontal">
@@ -54,7 +54,7 @@
                 <dd><p class="text-info">1150 р.</p></dd>
             </dl>
             </blockquote>
-            <pre><p class="muted"> Ссылка для отслеживания заказа <a href="http://localhost:8080<%= request.getContextPath()%>/order/${order.id}">http://localhost:8080<%= request.getContextPath()%>/order/${order.id}</a> <small>- запишите её</small></p></pre>
+            <pre><p class="muted">Вы можете отслеживать статус заказа по этой ссылке: <a href="http://localhost:8080<%= request.getContextPath()%>/order/${order.id}">http://localhost:8080<%= request.getContextPath()%>/order/${order.id}</a></p></pre>
         </div>
 
     </body>

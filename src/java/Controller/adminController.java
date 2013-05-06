@@ -5,6 +5,7 @@ import DAO.OrderDao;
 import DAO.UserDao;
 import Model.Courier;
 import Model.User;
+import Model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -46,10 +47,9 @@ public class adminController {
         return mav;
     }
     
-    @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
-    public String  adminAddView(
-            @RequestParam("name") String name, Object principal) {
-        
+    @RequestMapping(value="/admin/add", method=RequestMethod.POST)
+    public String adminAddView(@RequestParam("name") String name, Object principal)
+    {    
         Courier courier = new Courier();
         courier.setName(name);
         courierDao.insert(courier);
@@ -57,4 +57,15 @@ public class adminController {
         return "redirect:/admin";
     }
     
+    @RequestMapping(value="/admin/edit", method=RequestMethod.POST)
+    public String adminEditView(
+            @RequestParam("orderId") String orderId,
+            @RequestParam("courierId") String courierId,
+            Object principal)
+    {
+        Order order = orderDao.getById(Integer.parseInt(orderId));
+        order.setCourier_id(Integer.parseInt(courierId));
+        orderDao.update(order);
+        return "redirect:/admin";
+    }
 }
