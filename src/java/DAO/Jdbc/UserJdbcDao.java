@@ -36,39 +36,39 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void insert(User user) {
-        String sql = "INSERT INTO user(login, name, password, role_id) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO `user`(`login`, `name`, `password`, `role_id`) VALUES(?,?,?,?)";
         jdbcTemplate.update(sql, getPreparedStatementSetter(user));
     }
 
     @Override
     public void update(User user) {
-        String sql = "UPDATE user SET `login`=?, `name`=?, `password`=?, `role_id`=? WHERE `id`=?";
+        String sql = "UPDATE `user` SET `login`=?, `name`=?, `password`=?, `role_id`=? WHERE `id`=?";
         jdbcTemplate.update(sql, getPreparedStatementSetter(user));
     }
 
     @Override
     public void delete(User user) {
-        jdbcTemplate.update("DELETE FROM user WHERE id=?", user.getId());
+        jdbcTemplate.update("DELETE FROM `user` WHERE `id`=?", user.getId());
     }
 
     @Override
     public User getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM user WHERE id=?", rowMapper, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM `user` WHERE `id`=?", rowMapper, id);
     }
 
     @Override
     public User getByLogin(String login) {
-        return jdbcTemplate.queryForObject("SELECT * FROM user WHERE login=?", rowMapper, login);
+        return jdbcTemplate.queryForObject("SELECT * FROM `user` WHERE `login`=?", rowMapper, login);
     }
 
     @Override
     public List<User> getAll() {
-        return jdbcTemplate.query("SELECT * FROM user", rowMapper);
+        return jdbcTemplate.query("SELECT * FROM `user`", rowMapper);
     }
 
     @Override
     public int getCount() {
-        return this.jdbcTemplate.queryForInt("SELECT count(*) FROM user");
+        return this.jdbcTemplate.queryForInt("SELECT count(*) FROM `user`");
     }
 
     private PreparedStatementSetter getPreparedStatementSetter(final User user) {

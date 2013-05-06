@@ -47,9 +47,12 @@ public class OrderJdbcDao implements OrderDao {
         return jdbcTemplate.update(sql, getPreparedStatementSetter(order));
     }
 
+    
     @Override
     public void update(Order order) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       
+        String sql = "UPDATE `order` SET `courier_id`=? WHERE `id`=?";
+        jdbcTemplate.update(sql, order.getCourier_id(), order.getId());
     }
 
     @Override
@@ -81,6 +84,7 @@ public class OrderJdbcDao implements OrderDao {
     public List<Order> getAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
 
     private PreparedStatementSetter getPreparedStatementSetter(final Order order) {
         return new PreparedStatementSetter() {
@@ -88,7 +92,7 @@ public class OrderJdbcDao implements OrderDao {
             public void setValues(PreparedStatement ps) throws SQLException {
                 int i = 0;
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 String startTime = sdf.format(order.getDelivery_start_time());
                 String stopTime = sdf.format(order.getDelivery_stop_time());
 

@@ -9,8 +9,9 @@
     <body>
         <div id="header" class="row">
             <div class="span6 logo">
-                <h2><a href="<%= request.getContextPath()%>">Курьерская служба</a></h2>
+                <h2><a href="<%= request.getContextPath()%>">Курьерская служба</a></h2>   
             </div>
+            
             <div class="span6 login">
                 <c:choose>
                     <c:when test="${not empty authUser}">
@@ -27,11 +28,18 @@
                     <c:otherwise>
                         <p><a href="<%= request.getContextPath()%>/login">Войти</a> / <a href="<%= request.getContextPath()%>/reg">Регистрация</a></p>
                     </c:otherwise>
-                </c:choose>
+                </c:choose>    
+            </div>
+       
+            <div id="orderSearch" class="span6 logo">
+                <form action="<%= request.getContextPath()%>/order/searсh" class="form-search" method="post">
+                Найти заказ: <input class="input-large" type="text" name="order_id" placeholder="Номер заказа">
+                <button type="submit" class="btn">Найти</button>
+                </form>   
             </div>
         </div>
-
-        <div id="map">
+                
+       <div id="map">
             <div id="order">
                 <form action="<%= request.getContextPath()%>/order" method="post">
 
@@ -41,21 +49,21 @@
                     <input type="text" name="recipient_name" placeholder="ФИО получателя">
                     <input type="text" name="recipient_address" id="end" class="route" placeholder="Адрес получателя">
 
-                    <label>Время отправления</label>
-                    <input size="16" type="text" name="start_date" value="${dateTimeNow}" readonly id="date_start" class="form_datetime">
-                    <label>Время прибытия</label>
-                    <input size="16" type="text" name="stop_date" value="" id="date_stop" readonly>
+                    <label>Забрать до:</label>
+                    <input size="16" type="text" name="start_date" value="" id="date_start" class="form_datetime" />
+                    <label>Доставить до:</label>
+                    <input size="16" type="text" name="stop_date" value="" id="date_stop" class="form_datetime" />
 
                     <input type="submit" class="btn btn-primary" value="Сделать заказ" />
                     <c:choose>
                         <c:when test="${not empty authUser}">
-                            <input type="hidden" name="user_id" value="${authUser.id}">
+                            <input type="hidden" name="user_id" value="${authUser.id}" />
                         </c:when>
                         <c:otherwise>
-                            <input type="hidden" name="user_id" value="null">
+                            <input type="hidden" name="user_id" value="null" />
                         </c:otherwise>
                     </c:choose>
-                    <input type="hidden" name="length" id="inputLength" value="">
+                    <input type="hidden" name="length" id="inputLength" value="0" />
                 </form> 
             </div>
 
@@ -63,14 +71,6 @@
                 <p>Длина пути: <b><span class="getLength"></span></b></p>
                 <p>Время пути: <b><span class="getTime"></span></b></p>
             </div>
-        </div>
-
-        <div id="orderSearch" class="mydiv">
-            <form action="<%= request.getContextPath()%>/order/searсh" class="form-search" method="post">
-                Найти заказ:
-                <input class="input-xxlarge" type="text" name="order_id" placeholder="Номер заказа">
-                <button type="submit" class="btn">Найти</button>
-            </form>
         </div>
 
         <jsp:include page="/WEB-INF/jsp/layout/footer.jsp"></jsp:include>

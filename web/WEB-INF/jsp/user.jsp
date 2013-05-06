@@ -56,7 +56,7 @@
                             <tbody>
                                 <c:forEach var="order" items="${orderList}">
                                     <c:choose>
-                                        <c:when test="${order.courier_id=='0'}">
+                                        <c:when test="${order.courier_id}=null">
                                             <tr class="warning">
                                                 <td>${order.id}</td>
                                                 <td>${order.sender_name}</td>
@@ -65,7 +65,7 @@
                                                 <td>${order.recipient_address}</td>
                                                 <td>${order.delivery_start_time}</td>
                                                 <td>${order.delivery_stop_time}</td>
-                                                <td>Неназначен</td>
+                                                <td>Не назначен</td>
                                             </tr>
                                         </c:when>
                                         <c:otherwise>
@@ -77,7 +77,13 @@
                                                 <td>${order.recipient_address}</td>
                                                 <td>${order.delivery_start_time}</td>
                                                 <td>${order.delivery_stop_time}</td>
-                                                <td>Назначен</td>
+                                                <td>
+                                                    <c:forEach var="courier" items="${courierList}">
+                                                        <c:if test="${courier.id == order.courier_id}">
+                                                            <c:out value="${courier.name}"/>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </td>
                                             </tr>
                                         </c:otherwise>
                                     </c:choose>

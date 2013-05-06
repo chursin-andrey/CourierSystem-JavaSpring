@@ -2,8 +2,10 @@ package Controller;
 
 import DAO.OrderDao;
 import DAO.UserDao;
+import DAO.CourierDao;
 import Model.Order;
 import Model.User;
+import Model.Courier;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,8 +19,12 @@ public class userController {
 
     @Autowired
     OrderDao orderDao = null;
+    
     @Autowired
     UserDao userDao = null;
+    
+    @Autowired
+    CourierDao courierDao = null;
 
     @RequestMapping("/user")
     public ModelAndView userView(Object principal) {
@@ -34,9 +40,8 @@ public class userController {
         }
 
         mav.addObject("title", "Личный кабинет " + user.getName());
-
-        List<Order> orderList = orderDao.getByUser(user.getId());
-        mav.addObject("orderList", orderList);
+        mav.addObject("orderList", orderDao.getByUser(user.getId()));
+        mav.addObject("courierList", courierDao.getAll());
 
         return mav;
     }
