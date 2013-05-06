@@ -11,7 +11,7 @@
             <div class="span6 logo">
                 <h2><a href="<%= request.getContextPath()%>">Курьерская служба</a></h2>   
             </div>
-            
+
             <div class="span6 login">
                 <c:choose>
                     <c:when test="${not empty authUser}">
@@ -30,16 +30,18 @@
                     </c:otherwise>
                 </c:choose>    
             </div>
-       
-            <div id="orderSearch" class="span6 logo">
-                <form action="<%= request.getContextPath()%>/order/searсh" class="form-search" method="post">
-                Найти заказ: <input class="input-large" type="text" name="order_id" placeholder="Номер заказа">
-                <button type="submit" class="btn">Найти</button>
-                </form>   
-            </div>
+
         </div>
-                
-       <div id="map">
+
+        <div id="orderSearch" class="mydiv">
+            <form action="<%= request.getContextPath()%>/order/searсh" class="form-search" method="post">
+                Найти заказ:
+                <input class="input-xxlarge" type="text" name="order_id" placeholder="Номер заказа">
+                <button type="submit" class="btn">Найти</button>
+            </form>
+        </div>
+
+        <div id="map">
             <div id="order">
                 <form action="<%= request.getContextPath()%>/order" method="post">
 
@@ -50,9 +52,9 @@
                     <input type="text" name="recipient_address" id="end" class="route" placeholder="Адрес получателя">
 
                     <label>Забрать до:</label>
-                    <input size="16" type="text" name="start_date" value="" id="date_start" class="form_datetime" />
+                    <input size="16" type="text" name="start_date" value="${dateTimeNow}" readonly id="date_start" class="form_datetime" />
                     <label>Доставить до:</label>
-                    <input size="16" type="text" name="stop_date" value="" id="date_stop" class="form_datetime" />
+                    <input size="16" type="text" name="stop_date" value="" readonly id="date_stop" class="form_datetime" />
 
                     <input type="submit" class="btn btn-primary" value="Сделать заказ" />
                     <c:choose>

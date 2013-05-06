@@ -68,13 +68,15 @@
                                         <td>
                                            <form action="<%= request.getContextPath()%>/admin/edit" method="post">
                                                <input type="hidden" name="orderId" value="${order.id}" />
-                                               <select name="courierId">
+                                               <div class="input-append">
+                                               <select style="width: 200px;"name="courierId">
                                                     <option disabled selected value="default">Выберите курьера</option>
                                                     <c:forEach var="courier" items="${courierList}">
                                                         <option value="${courier.id}">${courier.name}</option>
                                                     </c:forEach>
                                                 </select>
-                                                <input type="submit" class="btn" name="apply" value="Ok"/>
+                                                <button name="apply" class="btn" type="submit"><i class="icon-ok"></i></button>
+                                                </div>
                                             </form>
                                         </td>
                                     </tr>
