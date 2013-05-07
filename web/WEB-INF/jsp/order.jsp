@@ -33,9 +33,9 @@
         </div>
         
        <c:choose>
-            <c:when test='${!no_matches_found.isEmpty()}'>
+            <c:when test='${no_matches_found == "null"}'>
                 <div class="mydiv" >
-                    <c:out value="${no_mathes_found}">${no_matches_found.toString()}</c:out>    
+                    <c:out value="${no_mathes_found}">К сожалению, заказ с введенным номером не существует</c:out>    
                 </div>
             </c:when>
             <c:otherwise>
