@@ -94,14 +94,16 @@ public class orderController {
         
         Order order = orderDao.getById(Integer.parseInt(order_id));
         
-        String emptyResult = new String("");
+        String emptyResult = new String();
         
         if (order == null)
         {
-            mav.addObject("no_matches_found", emptyResult.concat("К сожалению, заказ с введенным номером не существует"));
+            emptyResult = "null";
+            mav.addObject("no_matches_found", emptyResult.toString());
         }
         else
         {
+            emptyResult = "not_null";
             mav.addObject("order", order);
         }
         
